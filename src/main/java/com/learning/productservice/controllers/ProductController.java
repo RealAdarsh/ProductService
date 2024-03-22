@@ -3,9 +3,10 @@ package com.learning.productservice.controllers;
 import com.learning.productservice.models.Product;
 import com.learning.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,34 +21,33 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<Product> getAllProducts(){
-        return new ArrayList<>();
+    public ResponseEntity<List<Product>> getAllProducts(){
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id ){
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id ){
+        return  new ResponseEntity<>(productService.getSingleProduct(id), HttpStatus.OK);
     }
 
     @PostMapping()
-    public Product addNewProduct(@RequestBody Product product){
-        Product p = new Product();
-        p.setTitle("MyProduct");
-        return p;
+    public ResponseEntity<Product> addNewProduct(@RequestBody Product product){
+        return  new ResponseEntity<>(productService.addNewProduct(product), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
-        return new Product();
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
+        return  new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public  Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
-        return new Product();
+    public  ResponseEntity<Product> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
+        return  new ResponseEntity<>(productService.replaceProduct(id, product ), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public void deleteProduct(@PathVariable("id") Long id){
-        return;
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id){
+        productService.deleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
