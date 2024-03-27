@@ -3,6 +3,7 @@ package com.learning.productservice.services;
 import com.learning.productservice.dtos.FakeStoreProductDto;
 import com.learning.productservice.models.Category;
 import com.learning.productservice.models.Product;
+import exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,11 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product getSingleProduct(long id) {
+    public Product getSingleProduct(long id) throws ProductNotFoundException {
         FakeStoreProductDto fakeStoreProductDto= restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class );
-
-        assert fakeStoreProductDto != null;
+        if (fakeStoreProductDto==null){
+            throw new ProductNotFoundException("Product Not Found");
+        }
         return convertFakeStoreProductServiceToProduct(fakeStoreProductDto);
     }
     @Override
@@ -69,7 +71,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public Product updateProduct(Long id, Product product) throws ProductNotFoundException {
         Product prevProduct = getSingleProduct(id);
         if (product.getCategory() != null) {
             prevProduct.setCategory(product.getCategory());
