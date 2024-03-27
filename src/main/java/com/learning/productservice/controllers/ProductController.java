@@ -1,7 +1,9 @@
 package com.learning.productservice.controllers;
 
+import com.learning.productservice.dtos.ExceptionDto;
 import com.learning.productservice.models.Product;
 import com.learning.productservice.services.ProductService;
+import exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id ){
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id ) throws ProductNotFoundException {
         return  new ResponseEntity<>(productService.getSingleProduct(id), HttpStatus.OK);
     }
 
@@ -36,7 +38,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) throws ProductNotFoundException {
         return  new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
     }
 
@@ -49,5 +51,13 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id){
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ExceptionDto> productNotFound(){
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.message = "Product Not Found";
+
+        return new ResponseEntity<>(exceptionDto, HttpStatus.OK);
     }
 }
