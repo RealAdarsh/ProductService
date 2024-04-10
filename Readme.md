@@ -10,3 +10,30 @@ Java tries to be as much compatible with previous version as possible, Java star
 
 Learnt about @ExceptionHandler and @ControllerAdvices and why it is needed to handle Exception gracefully. 
 
+### Cardinality 
+
+Learnt about how the cardinality works in Spring 
+
+@MappedSuperClass
+
+@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "user_id")
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+name = "userType",
+discriminatorType = DiscriminatorType.INTEGER
+)
+@DiscriminatorValue(value = "0")
+@DiscriminatorValue(value = "1")
+
+@Entity(name = "tbc_user")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+        
+
+### Qualifiers 
+
+Understood how Qualifier works 
+
+@Qualifiers where we need to distinguish between two service implemented from same interface.  
