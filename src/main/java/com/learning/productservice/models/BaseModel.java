@@ -1,5 +1,7 @@
 package com.learning.productservice.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -12,8 +14,10 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private Date created_at;
     private Date last_updated_at;
     private boolean is_deleted;
+    private int numberOfSales;
 }

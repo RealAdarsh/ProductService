@@ -37,3 +37,13 @@ discriminatorType = DiscriminatorType.INTEGER
 Understood how Qualifier works 
 
 @Qualifiers where we need to distinguish between two service implemented from same interface.  
+
+
+### HQL, Native Queries, Projections 
+
+In Java Spring Boot, projections in query methods allow you to define specific data subsets from your entities, optimizing query performance and reducing unnecessary data retrieval.
+
+
+### Versioning and Schema Migration 
+
+Used JPA Buddy plugin, learned about how we could use versioning and creating db.migrations files. 
