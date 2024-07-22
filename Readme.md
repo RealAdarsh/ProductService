@@ -47,3 +47,12 @@ In Java Spring Boot, projections in query methods allow you to define specific d
 ### Versioning and Schema Migration 
 
 Used JPA Buddy plugin, learned about how we could use versioning and creating db.migrations files. 
+
+### Test case
+
+- test case is nothing but a method annotated with @Test 
+- a test case fails if any of the assertion in the test case fails
+- We may want to have other kind of assertions as well:
+  - assert if the correct type of exception is thrown: 
+    - Library AssertJ, Hamcrest
+  - what is expected should be first value and then the actual value
