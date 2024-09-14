@@ -45,7 +45,9 @@ class ProductControllerTest {
                 products
         );
 
-        ResponseEntity<List<Product>> response = productController.getAllProducts();
+        ResponseEntity<List<Product>> response = productController.getAllProducts(
+//                ""
+        );
 
         List<Product> productsInResponse = response.getBody();
 

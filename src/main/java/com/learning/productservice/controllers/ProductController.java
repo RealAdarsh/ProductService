@@ -1,5 +1,6 @@
 package com.learning.productservice.controllers;
 
+import com.learning.productservice.commons.AuthenticationCommons;
 import com.learning.productservice.dtos.ExceptionDto;
 import com.learning.productservice.models.Product;
 import com.learning.productservice.services.ProductService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -16,14 +18,23 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private RestTemplate restTemplate;
+    private AuthenticationCommons authenticationCommons;
 
     @Autowired
-    public ProductController(ProductService productService){
+    public ProductController(ProductService productService, RestTemplate restTemplate, AuthenticationCommons authenticationCommons){
         this.productService = productService;
+        this.restTemplate = restTemplate;
+        this.authenticationCommons =authenticationCommons;
     }
 
     @GetMapping()
-    public ResponseEntity<List<Product>> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts(
+//            @RequestHeader("AuthenticationToken") String token
+    ){
+//        if (authenticationCommons.ValidateToken(token)==null){
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//        }
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
