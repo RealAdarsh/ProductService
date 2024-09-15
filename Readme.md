@@ -56,3 +56,6 @@ Used JPA Buddy plugin, learned about how we could use versioning and creating db
   - assert if the correct type of exception is thrown: 
     - Library AssertJ, Hamcrest
   - what is expected should be first value and then the actual value
+
+
+- Modify security config in order to allow all the requests to be authenticated.
